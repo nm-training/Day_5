@@ -1,0 +1,439 @@
+---
+title: "Data frame and Data Import"
+format: html
+editor: visual
+---
+
+## Data frame
+
+### About
+
+-   A tabular data structure similar to spreadsheets or database tables
+-   Contains rows (observations) and columns (variables)
+-   Columns can be of different types (numeric, character, factor, etc.)
+-   Created using data.frame() function
+
+Key Features:
+
+-   Two-dimensional structure
+-   Columns must be equal length
+-   Similar to lists where each column is a vector
+
+### Example
+
+```{r}
+students <- data.frame(
+  ID = 1:3,
+  Name = c("Alice", "Bob", "Carol"),
+  Score = c(85, 92, 78),
+  Passed = c(TRUE, TRUE, FALSE)
+)
+```
+
+
+## Your Turn 01
+
+1.  Make a data frame `books` with:
+
+    -   Title: "1984", "Pride & Prejudice", "Moby"
+    -   Author: "Orwell", "Austen", "Melville"
+    -   Year: 1949, 1813, 1851
+
+```{r}
+
+
+
+
+
+```
+
+
+## Data Operation
+
+### Vectors
+
+```{r}
+# Create vectors first
+names <- c("Alice", "Bob", "Carol")
+ages <- c(25, 30, 28)
+salaries <- c(50000, 60000, 55000)
+
+# Combine into data frame
+employees <- data.frame(
+  Name = names, 
+  Age = ages, 
+  Salary = salaries
+  )
+```
+
+### Lists
+
+```{r}
+data_list <- list(
+  Product = c("A", "B", "C"),
+  Price = c(10.5, 20.3, 15.7),
+  InStock = c(TRUE, FALSE, TRUE)
+)
+
+product_df <- data.frame(data_list)
+```
+
+### Access
+
+```{r}
+# By column name
+employees$Name
+```
+
+
+```{r}
+employees[["Salary"]]
+```
+
+```{r}
+# First row
+employees[1, ]     
+```
+
+<br>
+
+```{r}
+employees[, 2]    # Second column 
+```
+
+
+ {.column width="50%"}
+```{r}
+# (row 2, column 3)
+employees[2, 3]   
+```
+
+```{r}
+# Subset
+employees[employees$Age > 26, ] 
+```
+
+### Modify
+
+```{r}
+# Add new column
+employees$Department <- c("HR", "IT", "Finance")
+
+# Modify existing
+employees$Salary[2] <- 65000
+
+# Remove column
+employees$Age <- NULL
+```
+
+## Your Turn 02
+
+Given:
+
+```{r}
+
+weather <- data.frame(
+  Day = c("Mon", "Tue", "Wed"),
+  Temp = c(22, 24, 19),
+  Rain = c(FALSE, TRUE, FALSE)
+)
+```
+
+-   Add a new column Humidity with values 65, 72, 68
+
+-   Find all days where Temp \> 20 and Rain is FALSE
+
+```{r}
+
+
+
+
+```
+
+### Analysis
+
+```{r}
+# Dimensions
+nrow(employees)
+ncol(employees)
+dim(employees)
+```
+
+```{r}
+# Structure info
+str(employees)
+```
+
+```{r}
+# Summary statistics
+summary(employees)
+```
+
+
+## Exploration
+
+ panel-tabset
+### Functions
+
+-   Common Data frame Functions
+
+| **Function** | **Purpose**       |
+|:-------------|:------------------|
+| `head()`     | View first 6 rows |
+| `tail()`     | View last 6 rows  |
+| `names()`    | Get column names  |
+| `table()`    | Frequency table   |
+
+### Examples
+
+```{r}
+head(employees)
+```
+
+```{r}
+tail(employees)
+```
+
+```{r}
+names(employees)
+```
+
+```{r}
+table(employees$Department)
+```
+
+
+## Your Turn 01
+
+Using `mtcars` built-in dataset:
+
+-   Explore about dataset using `?mtcars`
+-   load data using `data(mtcars)`
+-   Get the structure with `str()`
+-   Find the average `mpg` for cars with `cyl=6`
+-   Create a frequency table of `gear` types
+
+```{r}
+
+
+
+
+
+
+
+
+```
+
+# R Packages
+
+### Introduction to Libraries, Packages
+
+| Key Concept | Description |
+|----------------------|-------------------------------------------------|
+| Package | A bundle of code, data, and documentation that extends R's functionality. |
+| Library | A directory where installed packages are stored. |
+| CRAN (Comprehensive R Archive Network) | A repository for R packages. It hosts 22,052 contributed packages which is available for free. |
+| Loading a Package | Making a package's functions and data available in your R session using `library()`. |
+
+## Package Management
+
+| Function             | Description                 |
+|----------------------|-----------------------------|
+| update.packages()    | Updating packages           |
+| installed.packages() | Checking installed packages |
+| remove.packages()    | Removing packages           |
+
+#### Installing Packages
+
+To install a package in R, use the `install.packages()` function.
+
+```{r}
+install.packages(c("tidyverse", "haven", "readxl", "writexl", "RSQLite", "DBI"))
+```
+
+#### Loading Packages
+
+After installation, use `library()` to load the package.
+
+```{r}
+library(tidyverse)
+```
+
+## Import and Export Data Files
+
+#### Path in R
+
+-   R uses `/` (forward slash) for path similar to Linux or Mac OS.
+
+-   Windows OS uses `\` (backslash) for path\
+    \
+    Example: In R we use forward slash for path `data/input.csv`
+    
+    
+### R Files
+
+- To read and write RDS files in R, we dont need any packages.
+
+```{r}
+# Reading a R input
+data <- readRDS("data/input.rds")
+
+# Writing a R output
+saveRDS(data, "data/output.rds")
+```
+
+
+#### CSV files
+
+- To read and write CSV files in R, you can use `read_csv()` and `write_csv()`.
+
+```{r}
+
+# For CSV dataset
+library(readr) 
+
+# Reading a CSV input
+data <- read_csv("data/input.csv", show_col_types = FALSE) 
+
+# Writing a CSV output
+write_csv(data, "data/output.csv")
+```
+
+#### Excel files
+
+To read and write Excel files, use the `readxl` and `writexl` packages.
+
+```{r}
+
+# Reading an Excel input
+library(readxl)
+data <- read_excel("data/input.xlsx")
+
+# Writing an Excel output
+library(writexl)
+write_xlsx(data, "data/output.xlsx")
+```
+
+#### SAS files
+
+For reading and writing SAS files, the `haven` package can be used.
+
+```{r}
+
+# For SAS dataset
+library(haven)
+
+# Reading a SAS input
+data <- read_sas("data/input.sas7bdat")
+
+# Writing a SAS output (This function is depreciated)
+write_sas(data, "data/output.sas7bdat")
+```
+
+```{r}
+?write_sas
+```
+
+#### XPT files (SAS Transport files)
+
+To read and write XPT files, the `haven` package is also useful.
+
+```{r}
+# Reading an XPT input
+data <- read_xpt("data/input.xpt")
+
+# Writing an XPT input
+write_xpt(data, "data/output.xpt", version = 5)
+```
+
+## Your Turn 03
+
+- Create a data frame `patient` using following:
+
+```{.r}
+PATID is "P001", "P002", "P003"
+AGE is 35, 42, 28
+SEX "Male", "Female", "Male"
+TRT is"Drug A", "Drug B", "Drug A"
+OUT is "Improved", "Stable", "Worsened"
+```
+
+- Export it into `.xpt` and `.xlsx` (excel) file in your `data` folder.
+
+```{r}
+
+
+
+
+
+
+
+
+
+
+```
+
+## Databases in R
+
+R provides several packages to connect to databases, allowing you to:
+
+-   Query data directly from databases
+
+-   Write data to databases
+
+-   Perform database operations without loading entire datasets into memory
+
+## RSQLite Package
+
+`RSQLite` is an R interface to SQLite that:
+
+-   Doesn't require separate database server installation
+
+-   Stores entire database in a single file
+
+-   Is included with the `DBI` package (Database Interface for R)
+
+### Create
+
+```{r}
+# Load packages
+library(DBI)
+library(RSQLite)
+
+# Create or connect to an SQLite database
+con <- dbConnect(RSQLite::SQLite(), "data/example.db")
+```
+
+### Load
+
+```{r}
+# Create a sample data frame
+data(iris)
+
+# Write data frame to database table
+dbWriteTable(con, "iris_data", iris, overwrite=TRUE)
+```
+
+### Extract
+
+```{r}
+# Query Data
+results <- dbGetQuery(con, 'SELECT * FROM iris_data WHERE "Sepal.Length" > 5')
+
+# Add a new table
+new_data <- data.frame(id = 1:5, value = rnorm(5))
+dbWriteTable(con, "new_table", new_data, overwrite=TRUE)
+```
+
+### List
+
+```{r}
+print(dbListTables(con))
+```
+
+### Disconnect
+
+```{r}
+# Always disconnect when done
+dbDisconnect(con)
+```
