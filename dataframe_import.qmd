@@ -1,5 +1,6 @@
 ---
 title: "Data frame and Data Import"
+author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
 format: html
 editor: visual
 ---
@@ -30,7 +31,6 @@ students <- data.frame(
 )
 ```
 
-
 ## Your Turn 01
 
 1.  Make a data frame `books` with:
@@ -46,7 +46,6 @@ students <- data.frame(
 
 
 ```
-
 
 ## Data Operation
 
@@ -85,7 +84,6 @@ product_df <- data.frame(data_list)
 employees$Name
 ```
 
-
 ```{r}
 employees[["Salary"]]
 ```
@@ -101,8 +99,8 @@ employees[1, ]
 employees[, 2]    # Second column 
 ```
 
+{.column width="50%"}
 
- {.column width="50%"}
 ```{r}
 # (row 2, column 3)
 employees[2, 3]   
@@ -169,11 +167,9 @@ str(employees)
 summary(employees)
 ```
 
-
 ## Exploration
 
- panel-tabset
-### Functions
+panel-tabset \### Functions
 
 -   Common Data frame Functions
 
@@ -202,8 +198,7 @@ names(employees)
 table(employees$Department)
 ```
 
-
-## Your Turn 01
+## Your Turn 03
 
 Using `mtcars` built-in dataset:
 
@@ -229,7 +224,7 @@ Using `mtcars` built-in dataset:
 ### Introduction to Libraries, Packages
 
 | Key Concept | Description |
-|----------------------|-------------------------------------------------|
+|-----------------------|-------------------------------------------------|
 | Package | A bundle of code, data, and documentation that extends R's functionality. |
 | Library | A directory where installed packages are stored. |
 | CRAN (Comprehensive R Archive Network) | A repository for R packages. It hosts 22,052 contributed packages which is available for free. |
@@ -268,11 +263,10 @@ library(tidyverse)
 -   Windows OS uses `\` (backslash) for path\
     \
     Example: In R we use forward slash for path `data/input.csv`
-    
-    
+
 ### R Files
 
-- To read and write RDS files in R, we dont need any packages.
+-   To read and write RDS files in R, we dont need any packages.
 
 ```{r}
 # Reading a R input
@@ -282,10 +276,9 @@ data <- readRDS("data/input.rds")
 saveRDS(data, "data/output.rds")
 ```
 
-
 #### CSV files
 
-- To read and write CSV files in R, you can use `read_csv()` and `write_csv()`.
+-   To read and write CSV files in R, you can use `read_csv()` and `write_csv()`.
 
 ```{r}
 
@@ -348,9 +341,9 @@ write_xpt(data, "data/output.xpt", version = 5)
 
 ## Your Turn 03
 
-- Create a data frame `patient` using following:
+-   Create a data frame `patient` using following:
 
-```{.r}
+``` r
 PATID is "P001", "P002", "P003"
 AGE is 35, 42, 28
 SEX "Male", "Female", "Male"
@@ -358,7 +351,7 @@ TRT is"Drug A", "Drug B", "Drug A"
 OUT is "Improved", "Stable", "Worsened"
 ```
 
-- Export it into `.xpt` and `.xlsx` (excel) file in your `data` folder.
+-   Export it into `.xpt` and `.xlsx` (excel) file in your `data` folder.
 
 ```{r}
 
